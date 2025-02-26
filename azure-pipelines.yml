@@ -42,7 +42,7 @@ stages:
       workingDirectory: $(rootFolder)
       displayName: 'Use PHP version $(phpVersion)'
 
-    - script: composer install --no-interaction --prefer-dist --optimize-autoloader
+    - script: composer install --no-interaction  --ignore-platform-reqs --prefer-dist --optimize-autoloader
       workingDirectory: $(rootFolder)
       displayName: 'Composer install'
 
