@@ -4,7 +4,9 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Services\SubscriptionService;
+use App\SubscriptionStatus;
 use app\SubscriptionType;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -17,7 +19,8 @@ class LoginController extends Controller
     }
 
 
-    public function login(Request $request) {
+    public function login(Request $request): JsonResponse
+    {
 
         $subscription_id = $request->input('subscription_id');
 
@@ -29,6 +32,10 @@ class LoginController extends Controller
 
         if(!isset($subscription->id)) {
             return response()->json(['response_code' => 400, 'response_message' => 'subscription_id was not found']);
+        }
+
+        if($subscription->status === SubscriptionStatus::INACTIVE->value) {
+            return response()->json(['response_code' => 400, 'response_message' => 'subscription is not active / or is expired.']);
         }
 
         return response()->json(['response_code' => 200, 'response_message' => 'success']);
