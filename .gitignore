@@ -30,3 +30,5 @@ Homestead.json
 auth.json
 phpunit.xml
 php.xml
+# Markdown documentation stays local and must not be committed to GitHub.
+*.[mM][dD]
